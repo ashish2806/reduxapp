@@ -3,6 +3,8 @@ import * as actionType from '../../reducer/action';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+//import Routes from '../../router/router';
 
 class Counter extends Component {
     
@@ -26,8 +28,23 @@ class Counter extends Component {
             break;    
         }
     }
-
+    logoutHandler(){
+        alert(1);
+        sessionStorage.setItem("userData","");
+        sessionStorage.clear();
+        //console.log(sessionStorage);
+    }
+    componentDidMount(){
+        console.log(this.props.loggedin);
+       
+    }
     render () {
+       // console.log.loggedin
+        if(this.props.loggedin === false){
+            return <Redirect to='login'/>
+            
+        }
+        
         return (
             <div>
                 <CounterOutput value={this.props.ctr} />
@@ -35,6 +52,7 @@ class Counter extends Component {
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
                 <CounterControl label="Add 5" clicked={this.props.onAddCounter}  />
                 <CounterControl label="Subtract 5" clicked={this.props.onSubtracrCounterd}  />
+                <CounterControl label="logout" clicked={this.logoutHandler}  />
                 <hr />
                 <button onClick={() =>this.props.onStoreresult(this.props.ctr)}>store result</button>
                 <ul>
@@ -52,7 +70,8 @@ class Counter extends Component {
 const MapStateToProps = state => {
     return{
             ctr : state.ctr.counter  ,
-            storeResult : state.res.results
+            storeResult : state.res.results,
+            loggedin:state.login.loggedin
     };
 };
 

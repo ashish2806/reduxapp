@@ -2,27 +2,27 @@ import React, { Component } from 'react';
 import './Login.css';
 import axios from '../../axios';
 import { Redirect } from 'react-router-dom';
+import * as actionType from '../../reducer/action';
+import { connect } from 'react-redux';
 class Login extends Component
 {
-    state={
-        email:'',
-        password:'',
-        redirect : false
-    }
+   
 
     loginHandler(){
 
         const data ={
-            email:this.state.email,
-            password:this.state.password
+            email:this.props.ema,
+            password:this.props.pas
         }
+        console.log(data);
         axios.post('login',data).then(response =>{
             
                
                if(response.data){
                 console.log(response.data.success.token);
                     sessionStorage.setItem('userData',response.data.success);
-                    this.setState({ redirect : true});
+                    this.props.onLoggedin()
+                   
                }
         }).catch(error=>{
             if (error.response.status === 401) {
@@ -38,11 +38,18 @@ class Login extends Component
           //  this.setState({e.target.value : e.target.value});
           console.log(e.target.value);
     }
+    componentDidMount()
+    {
+            if(sessionStorage.getItem("userData"))
+                
+                this.props.onLoggedin()
+        
+    }
     render()
     {
 
 
-        if(this.state.redirect){
+        if(this.props.loggedin){
                 return (<Redirect to='/home' />)
         }
         if(sessionStorage.getItem("userData")){
@@ -52,10 +59,10 @@ class Login extends Component
             <div className="login-form">
                  <h2 className="text-center">Log in</h2>       
                         <div className="form-group">
-                            <input name="email" type="text" className="form-control" placeholder="Username" required="required"  onChange={(event) => this.setState({[event.target.name]: event.target.value})} />
+                            <input name="email" type="text" className="form-control" placeholder="Username" required="required"  onChange={(event) => this.props.onEmail(event.target.value)} />
                         </div>
                         <div className="form-group">
-                            <input name="password" type="password" className="form-control" placeholder="Password"  required="required" onChange={(event) => this.setState({[event.target.name]: event.target.value})} />
+                            <input name="password" type="password" className="form-control" placeholder="Password"  required="required" onChange={(event) => this.props.onPassword(event.target.value)} />
                         </div>
                         <div className="form-group">
                             <button type="submit" className="btn btn-primary btn-block" onClick={()=>this.loginHandler()}>Log in</button>
@@ -66,6 +73,21 @@ class Login extends Component
         );
     }
 }
+const MapStateToProps = state => {
+    return{
+            ema:state.login.email,
+            pas:state.login.password,
+            loggedin : state.login.loggedin 
+    };
+};
 
+const MapDispatchToProps = dispatch =>{
+        return{
+            onEmail : (value) => dispatch({ type : actionType.ONEMAIL,value:value}),
+            onPassword : (value) => dispatch({ type : actionType.ONPASSWORD,value:value}),
+            onLoggedin : () => dispatch({ type : actionType.ONLOGGEDIN})
 
-export default Login;
+        };
+};
+
+export default connect(MapStateToProps,MapDispatchToProps)(Login);

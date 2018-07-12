@@ -4,3 +4,6 @@ export const ADD = 'ADD';
 export const SUBTRACT = 'SUBTRACT';
 export const ONSTORERESULT = 'ONSTORERESULT';
 export const ONDELETERESULT = 'ONDELETERESULT';
+export const ONLOGGEDIN = 'ONLOGGEDIN';
+export const ONEMAIL = 'ONEMAIL';
+export const ONPASSWORD = 'ONPASSWORD';
