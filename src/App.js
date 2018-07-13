@@ -3,14 +3,15 @@ import React, { Component } from 'react';
   
 import './App.css';
 import Routes from './router';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter,Link } from 'react-router-dom';
 class App extends Component {
+  
   render() {
     return (
       <BrowserRouter>
-      <div className="App">xzxZxx
+      <div className="App">
       <Routes />
-       
+      
       </div>
       </BrowserRouter>
     );

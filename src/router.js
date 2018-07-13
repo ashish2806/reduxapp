@@ -9,8 +9,10 @@ import Login from './components/Login/Login';
 const routes = () =>(
     <BrowserRouter>
     <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/home"  component={Counter} />
+        
+        <Route path="/" exact component={Login} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/home" exact component={Counter} />
     </Switch>
     </BrowserRouter>
 );

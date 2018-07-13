@@ -13,11 +13,21 @@ const reducer = (state=initialState,action) =>{
 
         case (actionType.ONLOGGEDIN):
         {
-
+            
             
             return{
                 ...state,
-                loggedin : true
+                loggedin :true
+            }//to update array immutibly use conact instead of push
+        }
+        case (actionType.ONLOGGEDOUT):
+        {
+            sessionStorage.setItem("userData","");
+            sessionStorage.clear();
+            
+            return{
+                ...state,
+                loggedin : false
             }//to update array immutibly use conact instead of push
         }
         case (actionType.ONEMAIL):

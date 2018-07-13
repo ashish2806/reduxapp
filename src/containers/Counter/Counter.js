@@ -29,10 +29,11 @@ class Counter extends Component {
         }
     }
     logoutHandler(){
-        alert(1);
+       
         sessionStorage.setItem("userData","");
         sessionStorage.clear();
         //console.log(sessionStorage);
+        
     }
     componentDidMount(){
         console.log(this.props.loggedin);
@@ -43,6 +44,8 @@ class Counter extends Component {
         if(this.props.loggedin === false){
             return <Redirect to='login'/>
             
+        }else{
+
         }
         
         return (
@@ -52,7 +55,7 @@ class Counter extends Component {
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
                 <CounterControl label="Add 5" clicked={this.props.onAddCounter}  />
                 <CounterControl label="Subtract 5" clicked={this.props.onSubtracrCounterd}  />
-                <CounterControl label="logout" clicked={this.logoutHandler}  />
+                <CounterControl label="logout" clicked={this.props.onLoggedout}  />
                 <hr />
                 <button onClick={() =>this.props.onStoreresult(this.props.ctr)}>store result</button>
                 <ul>
@@ -82,7 +85,8 @@ const MapDispatchToProps = dispatch =>{
                 onAddCounter : () => dispatch({ type : actionType.ADD,value:5}),
                 onSubtracrCounter : () => dispatch({ type : actionType.SUBTRACT,value : 5}),
                 onStoreresult : (value) => dispatch({ type : actionType.ONSTORERESULT,value:value}),
-                onDeleteresult : (id) => dispatch({ type : actionType.ONDELETERESULT,elemntid : id})
+                onDeleteresult : (id) => dispatch({ type : actionType.ONDELETERESULT,elemntid : id}),
+                onLoggedout : () => dispatch({ type : actionType.ONLOGGEDOUT})
 
         };
 };
