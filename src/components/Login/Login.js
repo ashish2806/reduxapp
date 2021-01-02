@@ -42,7 +42,7 @@ class Login extends Component
     {
             if(sessionStorage.getItem("userData"))
                 
-                this.props.onLoggedin()
+                this.props.onLoggedin;
         
     }
     render()
@@ -77,7 +77,7 @@ const MapStateToProps = state => {
     return{
             ema:state.login.email,
             pas:state.login.password,
-            loggedin : state.login.loggedin 
+            loggedin : true
     };
 };
 

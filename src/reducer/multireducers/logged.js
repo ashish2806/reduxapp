@@ -3,7 +3,7 @@ import * as actionType from '../action';
 const initialState={
     email:'',
     password:'',
-    loggedin : false
+    loggedin : true
 }
 
 const reducer = (state=initialState,action) =>{

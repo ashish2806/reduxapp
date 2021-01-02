@@ -16,6 +16,6 @@ const RootReducer =combineReducers({
         login:loggedinReducer
 });
 
-const store = createStore(RootReducer );
+const store = createStore(RootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() );
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
